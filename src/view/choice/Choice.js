@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
 import {accelerometer, SensorTypes, setUpdateIntervalForType} from "react-native-sensors";
 import {filter, map} from "rxjs/operators";
 import {shuffle} from "../../util/ArrayUtil";
+import LottieView from 'lottie-react-native';
+
+const {height, width} = Dimensions.get('window');
 
 const Choice: () => React$Node = (e) => {
 
@@ -30,17 +33,23 @@ const Choice: () => React$Node = (e) => {
         })}
       </View>
       <View style={styles.body}>
-        <Text style={{color: "#ffffff"}}>
-          {sensorState}
-        </Text>
+        <LottieView style={{width: '100%', height: '100%'}}
+                    resizeMode={'cover'}
+                    source={require('../../assets/lottie/transition.json')}
+                    autoPlay
+                    loop/>
       </View>
+
       <View style={styles.footer}>
         <View style={styles.footerStopButton}>
           <Image
             style={{width: 13, height: 13}}
-            source={require('../../assets/stop_button.png')}
+            source={require('../../assets/img/stop_button.png')}
           />
         </View>
+        <Text style={{color: "#ffffff"}}>
+          {sensorState}
+        </Text>
       </View>
     </>
   );
@@ -55,7 +64,10 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: '#111111',
     width: '100%',
-    height: '65%'
+    height: '65%',
+    alignItems: 'center',
+    margin: 0,
+    padding: 0
   },
   footer: {
     backgroundColor: '#111111',
