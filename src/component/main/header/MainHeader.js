@@ -10,7 +10,7 @@ const MainHeader: () => React$Node = () => {
     if (state.mode === 'now') {
       return <Image
         style={styles.now}
-        source={require('../../../assets/now_pick.png')}
+        source={require('../../../assets/img/now_pick.png')}
       />
     }
     if (state.mode !== 'now') {
@@ -19,7 +19,7 @@ const MainHeader: () => React$Node = () => {
       }}>
         <Image
           style={styles.now}
-          source={require('../../../assets/now_unpick.png')}
+          source={require('../../../assets/img/now_unpick.png')}
         />
       </TouchableHighlight>
     }
@@ -29,7 +29,7 @@ const MainHeader: () => React$Node = () => {
     if (state.mode === 'history') {
       return <Image
         style={styles.history}
-        source={require('../../../assets/history_pick.png')}
+        source={require('../../../assets/img/history_pick.png')}
       />
     }
     if (state.mode !== 'history') {
@@ -38,7 +38,7 @@ const MainHeader: () => React$Node = () => {
       }}>
         <Image
           style={styles.history}
-          source={require('../../../assets/history_unpick.png')}
+          source={require('../../../assets/img/history_unpick.png')}
         />
       </TouchableHighlight>
     }

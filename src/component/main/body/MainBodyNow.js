@@ -100,7 +100,7 @@ const MainBodyNow: () => React$Node = () => {
   const FloatingButton = () => {
     if (dataSetState.length > 1) {
       return <ActionButton
-        renderIcon={() => (<Image source={require("../../../assets/floating_button_on.png")}
+        renderIcon={() => (<Image source={require("../../../assets/img/floating_button_on.png")}
                                   style={{width: 60, height: 90, marginBottom: 30}}/>)}
         onPress={() => {
           NavigationService.navigate('ChoiceScreen', {
@@ -112,7 +112,7 @@ const MainBodyNow: () => React$Node = () => {
       />
     } else {
       return <ActionButton
-        renderIcon={() => (<Image source={require("../../../assets/floating_button_off.png")}
+        renderIcon={() => (<Image source={require("../../../assets/img/floating_button_off.png")}
                                   style={{width: 50, height: 50}}/>)}
       />
     }
@@ -152,7 +152,7 @@ const MainBodyNow: () => React$Node = () => {
               }}>
                 <Image
                   style={styles.xbox}
-                  source={require('../../../assets/xbox.png')}
+                  source={require('../../../assets/img/xbox.png')}
                 />
               </TouchableHighlight>
             </View>
@@ -160,7 +160,6 @@ const MainBodyNow: () => React$Node = () => {
 
         </View>
       })}
-      {/*<LottieView source={require('./animation.json')} autoPlay loop/>*/}
       <FloatingButton/>
     </>
   );
