@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     marginLeft: 18
   },
   allDeleteViewButton: {
-    color: '#777777',
+    color: 'rgb(119,119,119)',
     marginRight: 18
   },
   content: {
