@@ -3,6 +3,7 @@ import {Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'reac
 import {useTodoState} from "../../../context/Context";
 import ActionButton from 'react-native-action-button';
 import NavigationService from "../../../common/NavigationService";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 
 const MainBodyNow: () => React$Node = () => {
   const state = useTodoState();
@@ -122,47 +123,49 @@ const MainBodyNow: () => React$Node = () => {
     <>
       <AllDeleteView/>
 
-      {dataSetState.map((item, idx) => {
-        return <View style={styles.content} key={idx}>
-          <Text style={styles.rowNum}>
-            {idx + 1}
-          </Text>
+      <KeyboardAwareScrollView>
+        {dataSetState.map((item, idx) => {
+          return <View style={styles.content} key={idx}>
+            <Text style={styles.rowNum}>
+              {idx + 1}
+            </Text>
 
-          <View style={styles.rowTextView}>
-            <TextInput
-              style={styles.rowText}
-              placeholder="선택지를 입력해주세요"
-              placeholderTextColor="#616161"
-              onChangeText={text => onChangeText(idx, text)}
+            <View style={styles.rowTextView}>
+              <TextInput
+                style={styles.rowText}
+                placeholder="선택지를 입력해주세요"
+                placeholderTextColor="#616161"
+                onChangeText={text => onChangeText(idx, text)}
 
-              returnKeyType={"next"}
-              onSubmitEditing={() => {
-                dataSetState[idx + 1].focus.focus();
-              }}
-              ref={(input) => {
-                dataSetState[idx].focus = input;
-              }}
-            >
-              {item.text}
-            </TextInput>
+                returnKeyType={"next"}
+                onSubmitEditing={() => {
+                  dataSetState[idx + 1].focus.focus();
+                }}
+                ref={(input) => {
+                  dataSetState[idx].focus = input;
+                }}
+              >
+                {item.text}
+              </TextInput>
 
-            <View>
-              <TouchableHighlight onPress={() => {
-                onDeletePress(idx);
-              }}>
-                <Image
-                  style={styles.xbox}
-                  source={require('../../../assets/img/xbox.png')}
-                />
-              </TouchableHighlight>
+              <View>
+                <TouchableHighlight onPress={() => {
+                  onDeletePress(idx);
+                }}>
+                  <Image
+                    style={styles.xbox}
+                    source={require('../../../assets/img/xbox.png')}
+                  />
+                </TouchableHighlight>
+              </View>
             </View>
           </View>
+        })}
+      </KeyboardAwareScrollView>
 
-        </View>
-      })}
       <FloatingButton/>
     </>
-  );
+  )
 };
 
 const styles = StyleSheet.create({

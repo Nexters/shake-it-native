@@ -22,6 +22,7 @@
     "react-native": "0.61.5",
     "react-native-action-button": "^2.8.5",
     "react-native-gesture-handler": "^1.5.3",
+    "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-sensors": "^5.3.3",
     "react-navigation": "^4.0.10",
