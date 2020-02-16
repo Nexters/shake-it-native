@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Animated, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {accelerometer, SensorTypes, setUpdateIntervalForType} from "react-native-sensors";
 import {filter, map} from "rxjs/operators";
 import {shuffle} from "../../util/ArrayUtil";
@@ -28,7 +28,7 @@ const Choice: () => React$Node = (e) => {
             color: "#ffffff",
             marginTop: 40,
           }}>
-          aa
+          {dataSetState.pop().text}
         </Text>
       } else {
         return <></>
@@ -36,7 +36,7 @@ const Choice: () => React$Node = (e) => {
     };
 
     const activeChoice = (release) => {
-      if (!textAnimatedState && !textBackgroundState && lottieAnimation !== undefined) {
+      if (!textAnimatedState && !textBackgroundState && lottieAnimation !== undefined && dataSetState.length > 0) {
         // 텍스트 n초 딜레이뒤 떳다 사라지는 애니메이션
         setTimeout(() => {
           setTextAnimatedState(true);
@@ -57,7 +57,7 @@ const Choice: () => React$Node = (e) => {
             setTimeout(() => {
               setTextBackgroundState(false);
             }, 1000);
-          }, 4000);
+          }, 3500);
         }, 0);
       } else {
         release();
