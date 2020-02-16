@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {accelerometer, SensorTypes, setUpdateIntervalForType} from "react-native-sensors";
 import {filter, map} from "rxjs/operators";
 import {shuffle} from "../../util/ArrayUtil";
@@ -14,6 +14,7 @@ const Choice: () => React$Node = (e) => {
     const [textAnimatedState, setTextAnimatedState] = useState(false);
     const [textBackgroundState, setTextBackgroundState] = useState(false);
     const [lottieAnimation, setLottieAnimation] = useState();
+    const [resultDataSetState, setResultDataSetState] = useState([]);
 
     useEffect(() => {
       setDataSetState(shuffle(e.navigation.state.params.data));
@@ -47,7 +48,7 @@ const Choice: () => React$Node = (e) => {
             color: "#ffffff",
             marginTop: 40,
           }}>
-          {dataSetState.pop().text}
+          {dataSetState[dataSetState.length - 1].text}
         </Text>
       } else {
         return <></>
@@ -68,14 +69,15 @@ const Choice: () => React$Node = (e) => {
         setTextBackgroundState(true);
         lottieAnimation.play();
         setTimeout(() => {
-          if (lottieAnimation !== undefined) {
-            lottieAnimation.reset();
-          }
+          resultDataSetState.push(dataSetState.pop().text)
+          setResultDataSetState(resultDataSetState);
+
+          lottieAnimation.reset();
           release();
           setTimeout(() => {
             setTextBackgroundState(false);
-          }, 1000);
-        }, 4000);
+          }, 1200);
+        }, 1800);
       }, 0);
     };
 
@@ -104,11 +106,14 @@ const Choice: () => React$Node = (e) => {
 
     return (
       <>
-        <View style={styles.header}>
-          {dataSetState.map((item, idx) => {
-            return <Text key={idx} style={{color: "#ffffff"}}>{item.text}</Text>
+        <ScrollView style={styles.header} horizontal contentContainerStyle={{alignItems: 'center', paddingRight: 20}}>
+          {resultDataSetState.map((item, idx) => {
+            return <View style={styles.headerItemView} key={idx}>
+              <Text style={{color: '#ffffff'}}>{idx + 1}</Text>
+              <Text style={{color: '#bbbbbb', marginLeft: 5}}>{item}</Text>
+            </View>
           })}
-        </View>
+        </ScrollView>
         <View style={styles.body}>
           <LottieView style={{width: '100%', height: '100%', position: 'absolute'}}
                       resizeMode={'cover'}
@@ -136,7 +141,19 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#111111',
     width: '100%',
-    height: '10%'
+    height: '10%',
+  },
+  headerItemView: {
+    height: 33,
+    backgroundColor: '#333333',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#888888',
+    marginLeft: 12,
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   body: {
     backgroundColor: '#111111',
