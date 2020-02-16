@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-const NoHistoryBody: () => React$Node = () => {
+const NoHistoryBody = () => {
     return (
         <>
         <View style={styles.noHistoryBody}>

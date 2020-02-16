@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-import NoHistoryBody from '../../history/body/NoHistoryBody'
+import NoHistoryBody from './NoHistoryBody';
+import HistoryList from './HistoryList'
 
-const MainBodyHistory: () => React$Node = () => {
+import realm, { schemaTypes } from '../../../data';
+
+const MainBodyHistory = () => {
+  const [ histories, setHistories ] = useState([]);
+
+  async function fetchHistories() {
+    await setHistories(realm.objects(schemaTypes.history));
+  }
+
+  useEffect(() => fetchHistories(), []);
+
   return (
     <>
       <View style={styles.historyMainView}>
-        <NoHistoryBody />
+        <HistoryList histories={histories} />
       </View>
     </>
   );
