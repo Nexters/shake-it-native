@@ -102,7 +102,7 @@ const MainBodyNow: () => React$Node = () => {
     if (dataSetState.length > 1) {
       return <ActionButton
         renderIcon={() => (<Image source={require("../../../assets/img/floating_button_on.png")}
-                                  style={{width: 60, height: 90, marginBottom: 30}}/>)}
+                                  style={{width: 58, height: 56}}/>)}
         onPress={() => {
           NavigationService.navigate('ChoiceScreen', {
             screen: 'ChoiceScreen',
@@ -114,7 +114,7 @@ const MainBodyNow: () => React$Node = () => {
     } else {
       return <ActionButton
         renderIcon={() => (<Image source={require("../../../assets/img/floating_button_off.png")}
-                                  style={{width: 50, height: 50}}/>)}
+                                  style={{width: 58, height: 56}}/>)}
       />
     }
   };
