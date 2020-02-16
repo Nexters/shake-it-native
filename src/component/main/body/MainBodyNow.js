@@ -127,7 +127,7 @@ const MainBodyNow: () => React$Node = () => {
         {dataSetState.map((item, idx) => {
           return <View style={styles.content} key={idx}>
             <Text style={styles.rowNum}>
-              {idx + 1}
+              {(idx + 1).toString().padStart(2, '0')}
             </Text>
 
             <View style={styles.rowTextView}>
