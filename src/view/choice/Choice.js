@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {accelerometer, SensorTypes, setUpdateIntervalForType} from "react-native-sensors";
 import {filter, map} from "rxjs/operators";
@@ -10,11 +10,30 @@ const mutex = new Mutex();
 
 const Choice: () => React$Node = (e) => {
 
-    const [dataSetState, setDataSetState] = useState(shuffle(e.navigation.state.params.data));
-    const [sensorState, setSensorState] = useState(0);
+    const [dataSetState, setDataSetState] = useState([]);
     const [textAnimatedState, setTextAnimatedState] = useState(false);
     const [textBackgroundState, setTextBackgroundState] = useState(false);
     const [lottieAnimation, setLottieAnimation] = useState();
+
+    useEffect(() => {
+      setDataSetState(shuffle(e.navigation.state.params.data));
+      return subscribe.unsubscribe();
+    }, []);
+
+    const [transitions] = useState({
+        randomNumber: 0,
+        data: [
+          require('../../assets/lottie/transition_1.json'),
+          require('../../assets/lottie/transition_2.json'),
+          require('../../assets/lottie/transition_3.json'),
+          require('../../assets/lottie/transition_4.json')
+        ]
+      }
+    );
+
+    const recreateTransitionRandomNumber = () => {
+      transitions.randomNumber = Math.floor(Math.random() * transitions.data.length);
+    };
 
     const AnimateText = () => {
       if (textAnimatedState) {
@@ -36,47 +55,47 @@ const Choice: () => React$Node = (e) => {
     };
 
     const activeChoice = (release) => {
-      if (!textAnimatedState && !textBackgroundState && lottieAnimation !== undefined && dataSetState.length > 0) {
-        // 텍스트 n초 딜레이뒤 떳다 사라지는 애니메이션
+      // 텍스트 n초 딜레이뒤 떳다 사라지는 애니메이션
+      setTimeout(() => {
+        setTextAnimatedState(true);
         setTimeout(() => {
-          setTextAnimatedState(true);
-          setTimeout(() => {
-            setTextAnimatedState(false);
-          }, 1000);
-        }, 1400);
+          setTextAnimatedState(false);
+        }, 1000);
+      }, 1400);
 
-        // 배경 애니메이션 로티
+      // 배경 애니메이션 로티
+      setTimeout(() => {
+        setTextBackgroundState(true);
+        lottieAnimation.play();
         setTimeout(() => {
-          setTextBackgroundState(true);
-          lottieAnimation.play();
+          if (lottieAnimation !== undefined) {
+            lottieAnimation.reset();
+          }
+          release();
           setTimeout(() => {
-            if (lottieAnimation !== undefined) {
-              lottieAnimation.reset();
-            }
-            release();
-            setTimeout(() => {
-              setTextBackgroundState(false);
-            }, 1000);
-          }, 3500);
-        }, 0);
-      } else {
-        release();
-      }
+            setTextBackgroundState(false);
+          }, 1000);
+        }, 4000);
+      }, 0);
     };
 
     setUpdateIntervalForType(SensorTypes.accelerometer, 100);
-    accelerometer
+    const subscribe = accelerometer
       .pipe(map(({x, y, z}) => x + y + z), filter(speed => speed > 20))
       .subscribe(
         speed => {
-          if (!mutex.isLocked() && lottieAnimation !== undefined) {
+          if (!mutex.isLocked() && !textAnimatedState && !textBackgroundState && lottieAnimation !== undefined && dataSetState.length > 0) {
             mutex
               .acquire()
               .then(function (release) {
-                activeChoice(release);
+                // transition 랜덤하게 설정
+                recreateTransitionRandomNumber();
+                //  애니메이션 실행
+                setTimeout(() => {
+                  activeChoice(release);
+                }, 50);
               });
           }
-          // setSensorState(speed);
         },
         error => {
           console.log("The sensor is not available");
@@ -93,7 +112,7 @@ const Choice: () => React$Node = (e) => {
         <View style={styles.body}>
           <LottieView style={{width: '100%', height: '100%', position: 'absolute'}}
                       resizeMode={'cover'}
-                      source={require('../../assets/lottie/transition.json')}
+                      source={transitions.data[transitions.randomNumber]}
                       ref={animation => {
                         setLottieAnimation(animation);
                       }}
