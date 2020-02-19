@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 
+import NavigationService from '../../../common/NavigationService';
+
 const iconImage = {
     food: require('../../../assets/icons/food.png'),
     smile: require('../../../assets/icons/smile.png'),
@@ -9,7 +11,7 @@ const iconImage = {
 }
 
 export default ({ history }) => {
-    const historyImageUrl = iconImage[history.icon]
+    const historyImageUrl = iconImage[history.icon];
     
     return (
         <>
@@ -26,7 +28,14 @@ export default ({ history }) => {
                     { history.options.join(', ')}
                 </Text>
                 <View style={styles.btnBox}>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity 
+                        style={styles.btn} 
+                        onPress={() => {
+                            NavigationService.navigate('HistoryScreen', {
+                                data: history
+                            });
+                        }}
+                    >
                         <Text style={styles.btnText}>Shake it</Text>
                     </TouchableOpacity>
                 </View>

@@ -11,13 +11,11 @@ const HistoryList = ({ histories }) => {
     ));
 
     return (
-        <>
-            <ScrollView>
-                <View styles={styles.historyList}>
-                 { historyCards }
-                </View>
-            </ScrollView>
-        </>
+        <ScrollView>
+            <View styles={styles.historyList}>
+                { historyCards }
+            </View>
+        </ScrollView>
     );
 };
 
