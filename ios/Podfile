@@ -36,6 +36,8 @@ target 'shaking' do
 
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
+  pod 'RealmJS', :path => '../node_modules/realm'
+
   target 'shakingTests' do
     inherit! :search_paths
     # Pods for testing

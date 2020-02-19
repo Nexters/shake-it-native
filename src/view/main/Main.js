@@ -7,7 +7,7 @@ const Main: () => React$Node = () => {
   return (
     <>
       <ModeProvider>
-        <MainBody/>
+          <MainBody/>
       </ModeProvider>
     </>
   );

@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {useTodoState} from "../../../context/Context";
 import MainHeader from "../header/MainHeader";
 import MainBodyNow from "./MainBodyNow";
-import MainBodyHistory from "./MainBodyHistory";
+import MainBodyHistory from "../../history/body/MainBodyHistory";
 
 const MainBody: () => React$Node = () => {
   const state = useTodoState();

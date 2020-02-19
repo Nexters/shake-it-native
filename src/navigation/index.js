@@ -2,6 +2,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Main from '../view/main/Main';
 import Choice from '../view/choice/Choice';
+import History from '../view/history';
 
 const AuthStack = createStackNavigator(
   {
@@ -15,6 +16,12 @@ const AuthStack = createStackNavigator(
       screen: Choice,
       navigationOptions: {
         headerShown: false,
+      }
+    },
+    HistoryScreen: {
+      screen: History,
+      navigationOptions: {
+        headerShown: false
       }
     }
   },
