@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import NoHistoryBody from './NoHistoryBody';
 import HistoryList from './HistoryList'
@@ -18,7 +18,11 @@ const MainBodyHistory = () => {
   return (
     <>
       <View style={styles.historyMainView}>
-        <HistoryList histories={histories} />
+        { 
+          histories.length === 0 ? 
+          <NoHistoryBody /> :
+          <HistoryList histories={histories} /> 
+        }
       </View>
     </>
   );
@@ -27,7 +31,8 @@ const MainBodyHistory = () => {
 const styles = StyleSheet.create({
   historyMainView: {
     marginLeft: '10%',
-    marginRight: '10%'
+    marginRight: '10%',
+    marginBottom: 60
   }
 });
 

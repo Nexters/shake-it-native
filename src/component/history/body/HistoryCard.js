@@ -46,9 +46,10 @@ export default ({ history }) => {
 
 const styles = StyleSheet.create({
     historyCard: {
+        width: '50%',
         backgroundColor: '#151515',
-        paddingTop: 50,
-        paddingBottom: 50,
+        paddingTop: 40,
+        paddingBottom: 40,
         paddingLeft: 10,
         paddingRight: 10,
         marginBottom: 8,
